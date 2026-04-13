@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conjugaison Maroc – Générateur d'Exercices</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    /* ============================================================
+       VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --primary:       #4f46e5;
+      --primary-light: #6366f1;
+      --primary-dark:  #3730a3;
+      --secondary:     #06b6d4;
+      --accent:        #f59e0b;
+      --success:       #10b981;
+      --danger:        #ef4444;
+      --bg:            #f0f4ff;
+      --card-bg:       #ffffff;
+      --text:          #1e1b4b;
+      --text-muted:    #6b7280;
+      --border:        #e0e7ff;
+      --shadow:        0 4px 24px rgba(79,70,229,.12);
+      --shadow-hover:  0 8px 32px rgba(79,70,229,.22);
+      --radius:        16px;
+      --radius-sm:     8px;
+      --transition:    .3s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 4px; }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--secondary) 100%);
+      color: #fff;
+      padding: 48px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* Floating shapes */
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: .12;
+      animation: float 6s ease-in-out infinite;
+    }
+    .shape-1 { width:180px; height:180px; background:#fff; top:-60px; left:-60px; animation-delay:0s; }
+    .shape-2 { width:120px; height:120px; background:#fff; bottom:-40px; right:10%; animation-delay:2s; }
+    .shape-3 { width:80px;  height:80px;  background:var(--accent); top:20%; right:5%; animation-delay:4s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-18px) scale(1.05); }
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    header h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    header h1 span { color: var(--accent); }
+
+    header p {
+      font-size: 1rem;
+      opacity: .85;
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .wave {
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 100%; height: 48px;
+      fill: var(--bg);
+    }
+
+    /* ============================================================
+       MAIN LAYOUT
+    ============================================================ */
+    main {
+      max-width: 860px;
+      margin: -28px auto 60px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============================================================
+       CARD
+    ============================================================ */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 36px 32px;
+      margin-bottom: 28px;
+      border: 1px solid var(--border);
+      transition: box-shadow var(--transition);
+    }
+    .card:hover { box-shadow: var(--shadow-hover); }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-title i {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: .9rem;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       FORM
+    ============================================================ */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    input, select {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .93rem;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #fafbff;
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      width: 100%;
+    }
+    input:focus, select:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+      background: #fff;
+    }
+    input::placeholder { color: #b0b8d1; }
+
+    /* Input icon wrapper */
+    .input-wrap { position: relative; }
+    .input-wrap i {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-light);
+      font-size: .9rem;
+      pointer-events: none;
+    }
+    .input-wrap input,
+    .input-wrap select { padding-left: 40px; }
+
+    /* Level pills */
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 4px;
+    }
+    @media (max-width: 420px) { .level-grid { grid-template-columns: repeat(2,1fr); } }
+
+    .level-pill input[type="radio"] { display: none; }
+    .level-pill label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 8px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: none;
+      letter-spacing: 0;
+      background: #fafbff;
+      transition: all var(--transition);
+      text-align: center;
+    }
+    .level-pill label i { font-size: 1.2rem; color: var(--primary-light); }
+    .level-pill input:checked + label {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, #ede9fe, #e0e7ff);
+      color: var(--primary-dark);
+      box-shadow: 0 2px 12px rgba(79,70,229,.18);
+    }
+    .level-pill input:checked + label i { color: var(--primary-dark); }
+
+    /* ============================================================
+       BUTTON
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition);
+      letter-spacing: .02em;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(79,70,229,.35);
+      width: 100%;
+      margin-top: 8px;
+      font-size: 1rem;
+      padding: 16px;
+    }
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(79,70,229,.45);
+    }
+    .btn-primary:active:not(:disabled) { transform: translateY(0); }
+    .btn-primary:disabled {
+      opacity: .7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--secondary), #0284c7);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(6,182,212,.3);
+      padding: 10px 22px;
+      font-size: .85rem;
+    }
+    .btn-secondary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(6,182,212,.4); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 10px 22px;
+      font-size: .85rem;
+    }
+    .btn-ghost:hover { background: var(--primary); color: #fff; }
+
+    /* ============================================================
+       LOADER
+    ============================================================ */
+    #loader {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 48px;
+      text-align: center;
+    }
+    #loader.active { display: flex; }
+
+    .spinner-ring {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      border: 5px solid var(--border);
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loader-dots {
+      display: flex; gap: 8px;
+    }
+    .loader-dots span {
+      width: 10px; height: 10px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      animation: bounce 1.2s ease-in-out infinite;
+    }
+    .loader-dots span:nth-child(2) { animation-delay: .2s; background: var(--secondary); }
+    .loader-dots span:nth-child(3) { animation-delay: .4s; background: var(--accent); }
+    @keyframes bounce {
+      0%,80%,100% { transform: scale(.7); opacity:.5; }
+      40%          { transform: scale(1);  opacity:1;  }
+    }
+
+    #loader p {
+      font-size: .9rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       ERROR BANNER
+    ============================================================ */
+    .error-banner {
+      display: none;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      background: #fef2f2;
+      border: 1.5px solid #fca5a5;
+      border-radius: var(--radius-sm);
+      color: #b91c1c;
+      font-size: .88rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .error-banner.show { display: flex; }
+    .error-banner i { font-size: 1.1rem; flex-shrink:0; margin-top:2px; }
+
+    /* ============================================================
+       RESULT AREA
+    ============================================================ */
+    #results { display: none; }
+    #results.show { display: block; }
+
+    .result-header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #fff;
+      border-radius: var(--radius) var(--radius) 0 0;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .result-header-info h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .result-header-info p { font-size: .82rem; opacity: .8; }
+
+    .result-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .result-body {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Exercise sections */
+    .ex-section {
+      margin-bottom: 36px;
+      padding-bottom: 32px;
+      border-bottom: 2px dashed var(--border);
+      animation: fadeInUp .5s ease both;
+    }
+    .ex-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    .ex-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 16px;
+    }
+    .badge-qcm1  { background: #ede9fe; color: var(--primary-dark); }
+    .badge-qcm2  { background: #e0f2fe; color: #0369a1; }
+    .badge-trous { background: #fef3c7; color: #92400e; }
+    .badge-match { background: #dcfce7; color: #166534; }
+    .badge-vf    { background: #fce7f3; color: #9d174d; }
+
+    .ex-section h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    /* Rendered HTML content */
+    .ex-content { font-size: .92rem; line-height: 1.9; color: var(--text); }
+    .ex-content ol, .ex-content ul { padding-left: 22px; }
+    .ex-content li { margin-bottom: 8px; }
+    .ex-content strong { color: var(--primary-dark); }
+    .ex-content em { color: var(--text-muted); }
+    .ex-content .blank {
+      display: inline-block;
+      min-width: 80px;
+      border-bottom: 2px solid var(--primary);
+      margin: 0 4px;
+      color: transparent;
+    }
+
+    /* Table for matching */
+    .match-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .match-table th, .match-table td {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      font-size: .88rem;
+    }
+    .match-table th {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      font-weight: 600;
+      text-align: left;
+    }
+    .match-table tr:nth-child(even) td { background: #f8f8ff; }
+
+    /* ============================================================
+       STATS BAR
+    ============================================================ */
+    .stats-bar {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .stat-chip {
+      flex: 1;
+      min-width: 120px;
+      background: linear-gradient(135deg, #f0f4ff, #e8edff);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      text-align: center;
+    }
+    .stat-chip .stat-num {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .stat-chip .stat-lbl {
+      font-size: .72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    /* ============================================================
+       PRINT
+    ============================================================ */
+    @media print {
+      header, .card:not(#results-wrapper), .result-header .result-actions,
+      #loader, footer, .error-banner, .stats-bar { display: none !important; }
+      #results { display: block !important; }
+      .result-body { box-shadow: none; border: none; padding: 0; }
+      .result-header { background: none; color: #000; border: 2px solid #000; border-radius: 8px 8px 0 0; }
+      body { background: #fff; }
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      color: var(--text-muted);
+      font-size: .8rem;
+      border-top: 1px solid var(--border);
+    }
+    footer span { color: var(--primary); font-weight: 600; }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+    #toast {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      background: var(--text);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-size: .85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0,0,0,.25);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: all .3s ease;
+      pointer-events: none;
+      z-index: 999;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       RESPONSIVE TWEAKS
+    ============================================================ */
+    @media (max-width: 640px) {
+      .card { padding: 24px 18px; }
+      .result-body { padding: 20px 16px; }
+      .result-header { padding: 18px 20px; }
+      .stats-bar { gap: 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ====================================================
+     HEADER
+==================================================== -->
+<header>
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+  <div class="shape shape-3"></div>
+
+  <div class="header-badge">
+    <i class="fa-solid fa-graduation-cap"></i>
+    Primaire Marocain · Français
+  </div>
+
+  <h1>Générateur d'<span>Exercices</span><br>de Conjugaison</h1>
+  <p>Créez des exercices personnalisés et adaptés au niveau de vos élèves en quelques secondes.</p>
+
+  <svg class="wave" viewBox="0 0 1440 48" preserveAspectRatio="none">
+    <path d="M0,48 C360,0 1080,0 1440,48 L1440,48 L0,48 Z"/>
+  </svg>
+</header>
+
+<!-- ====================================================
+     MAIN
+==================================================== -->
+<main>
+
+  <!-- FORM CARD -->
+  <div class="card" id="form-card">
+    <div class="card-title">
+      <i class="fa-solid fa-pen-nib"></i>
+      Informations & Paramètres
+    </div>
+
+    <form id="exerciseForm" novalidate>
+      <div class="form-grid">
+
+        <!-- Nom -->
+        <div class="form-group">
+          <label for="fullname"><i class="fa-solid fa-user" style="margin-right:4px;color:var(--primary-light)"></i>Nom complet</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="fullname" placeholder="Ex : Fatima Zahra Alami" autocomplete="name" required/>
+          </div>
+        </div>
+
+        <!-- Titre leçon -->
+        <div class="form-group">
+          <label for="lesson"><i class="fa-solid fa-book-open" style="margin-right:4px;color:var(--primary-light)"></i>Titre de la leçon</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-book-open"></i>
+            <input type="text" id="lesson" placeholder="Ex : Le présent de l'indicatif" required/>
+          </div>
+        </div>
+
+      </div><!-- /form-grid -->
+
+      <!-- Level pills -->
+      <div class="form-group full" style="margin-top:20px;">
+        <label><i class="fa-solid fa-layer-group" style="margin-right:4px;color:var(--primary-light)"></i>Niveau scolaire</label>
+        <div class="level-grid" role="radiogroup" aria-label="Niveau scolaire">
+          <div class="level-pill">
+            <input type="radio" name="level" id="lv1" value="1re année primaire"/>
+            <label for="lv1"><i class="fa-solid fa-seedling"></i>1re Année</label>
+          </div>
+          <div class="level-pill">
+            <input type="radio" name="level" id="lv2" value="2e année primaire"/>
+            <label for="lv2"><i class="fa-solid fa-leaf"></i>2e Année</label>
+          </div>
+          <div class="level-pill">
+            <input type="radio" name="level" id="lv3" value="3e année primaire" checked/>
+            <label for="lv3"><i class="fa-solid fa-tree"></i>3e Année</label>
+          </div>
+          <div class="level-pill">
+            <input type="radio" name="level" id="lv4" value="4e année primaire"/>
+            <label for="lv4"><i class="fa-solid fa-star"></i>4e Année</label>
+          </div>
+          <div class="level-pill">
+            <input type="radio" name="level" id="lv5" value="5e année primaire"/>
+            <label for="lv5"><i class="fa-solid fa-rocket"></i>5e Année</label>
+          </div>
+          <div class="level-pill">
+            <input type="radio" name="level" id="lv6" value="6e année primaire"/>
+            <label for="lv6"><i class="fa-solid fa-crown"></i>6e Année</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div class="error-banner" id="formError" role="alert">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="formErrorMsg">Veuillez remplir tous les champs obligatoires.</span>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary" id="generateBtn">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        Générer les exercices
+      </button>
+    </form>
+  </div><!-- /card -->
+
+  <!-- LOADER -->
+  <div id="loader" role="status" aria-live="polite">
+    <div class="spinner-ring"></div>
+    <div class="loader-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <p id="loaderMsg">Génération des exercices en cours…</p>
+  </div>
+
+  <!-- API ERROR -->
+  <div class="error-banner" id="apiError" role="alert" style="margin-top:10px;">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <span id="apiErrorMsg">Une erreur est survenue lors de la génération.</span>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-wrapper">
+    <div id="results">
+
+      <!-- Result header -->
+      <div class="result-header">
+        <div class="result-header-info">
+          <h2 id="res-title">Exercices – Leçon</h2>
+          <p id="res-meta">Élève · Niveau</p>
+        </div>
+        <div class="result-actions">
+          <button class="btn btn-secondary" onclick="window.print()" title="Imprimer">
+            <i class="fa-solid fa-print"></i> Imprimer
+          </button>
+          <button class="btn btn-ghost" onclick="copyResults()" title="Copier">
+            <i class="fa-solid fa-copy"></i> Copier
+          </button>
+        </div>
+      </div>
+
+      <div class="result-body">
+
+        <!-- Stats -->
+        <div class="stats-bar">
+          <div class="stat-chip">
+            <div class="stat-num">5</div>
+            <div class="stat-lbl">Types d'exercices</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-num" id="stat-q">–</div>
+            <div class="stat-lbl">Questions</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-num" id="stat-lvl">–</div>
+            <div class="stat-lbl">Niveau</div>
+          </div>
+        </div>
+
+        <!-- Exercise sections populated by JS -->
+        <div id="ex-container"></div>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  Conçu pour le <span>Primaire Marocain</span> · Propulsé par Claude via OpenRouter
+</footer>
+
+<!-- TOAST -->
+<div id="toast">✅ Contenu copié !</div>
+
+<!-- ====================================================
+     JAVASCRIPT
+==================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  /* --------------------------------------------------
+     CONFIG — clé encodée en base64 pour éviter
+     l'exposition directe en clair dans le source.
+     (Protection légère ; ne pas déployer en production
+      sans proxy serveur.)
+  -------------------------------------------------- */
+  const _k = atob('c2stb3ItdjEtZDc4ZDE3YzdkOGQ5NDVlN2ExMWQ0ZGMzNzUyZjRhODE1YTAxNzk4YmUwMWUzZGQ4NGEyNzFjYTAxZWQ5ODc2OQ==');
+  const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+  const MODEL   = 'anthropic/claude-3.5-haiku';
+
+  /* --------------------------------------------------
+     DOM REFS
+  -------------------------------------------------- */
+  const form       = document.getElementById('exerciseForm');
+  const fullname   = document.getElementById('fullname');
+  const lesson     = document.getElementById('lesson');
+  const genBtn     = document.getElementById('generateBtn');
+  const loader     = document.getElementById('loader');
+  const loaderMsg  = document.getElementById('loaderMsg');
+  const apiErr     = document.getElementById('apiError');
+  const apiErrMsg  = document.getElementById('apiErrorMsg');
+  const formErr    = document.getElementById('formError');
+  const formErrMsg = document.getElementById('formErrorMsg');
+  const results    = document.getElementById('results');
+  const exContainer= document.getElementById('ex-container');
+  const resTitle   = document.getElementById('res-title');
+  const resMeta    = document.getElementById('res-meta');
+  const statQ      = document.getElementById('stat-q');
+  const statLvl    = document.getElementById('stat-lvl');
+  const toast      = document.getElementById('toast');
+
+  /* --------------------------------------------------
+     HELPERS
+  -------------------------------------------------- */
+  function getLevel() {
+    const r = document.querySelector('input[name="level"]:checked');
+    return r ? r.value : '';
+  }
+
+  function showError(el, msgEl, msg) {
+    msgEl.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 6000);
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  function setLoading(on) {
+    genBtn.disabled = on;
+    genBtn.innerHTML = on
+      ? '<i class="fa-solid fa-circle-notch fa-spin"></i> Génération…'
+      : '<i class="fa-solid fa-wand-magic-sparkles"></i> Générer les exercices';
+    loader.classList.toggle('active', on);
+    if (on) {
+      apiErr.classList.remove('show');
+      results.classList.remove('show');
+    }
+  }
+
+  /* Loader messages rotation */
+  const loaderMessages = [
+    'Génération des exercices en cours…',
+    'Adaptation au niveau scolaire…',
+    'Construction des QCM…',
+    'Préparation des textes à trous…',
+    'Finalisation des exercices…'
+  ];
+  let loaderTimer;
+  function startLoaderMessages() {
+    let i = 0;
+    loaderMsg.textContent = loaderMessages[0];
+    loaderTimer = setInterval(() => {
+      i = (i + 1) % loaderMessages.length;
+      loaderMsg.textContent = loaderMessages[i];
+    }, 2200);
+  }
+  function stopLoaderMessages() { clearInterval(loaderTimer); }
+
+  /* --------------------------------------------------
+     PROMPT BUILDER
+  -------------------------------------------------- */
+  function buildPrompt(name, lessonTitle, level) {
+    return `Tu es un enseignant expert en français pour le primaire marocain.
+Génère des exercices de conjugaison COMPLETS et PÉDAGOGIQUES sur la leçon : "${lessonTitle}", pour des élèves de ${level}.
+
+Le contenu doit être en français correct, adapté à l'âge, progressif et clair.
+
+Produis EXACTEMENT les 5 sections suivantes avec leurs titres en gras, dans cet ordre :
+
+## EXERCICE 1 — QCM à choix unique
+Minimum 4 questions. Chaque question numérotée avec 3 options (A, B, C). Indique la bonne réponse à la fin entre parenthèses.
+
+## EXERCICE 2 — QCM à choix multiples
+Minimum 3 questions. Chaque question avec 4 options (A, B, C, D). Plusieurs réponses peuvent être correctes. Indique les bonnes réponses à la fin.
+
+## EXERCICE 3 — Textes à trous
+3 phrases ou un court texte avec des blancs (___) à compléter. Les mots manquants sont des formes conjuguées. Liste les mots à utiliser dans un encadré « Banque de mots ».
+
+## EXERCICE 4 — Exercice de correspondance
+Créer 5 paires à relier (colonne A : sujets/phrases, colonne B : formes verbales conjuguées ou compléments). Présente sous forme de tableau.
+
+## EXERCICE 5 — Vrai ou Faux
+5 affirmations sur la conjugaison. L'élève coche Vrai ou Faux. Indique les réponses correctes à la fin.
+
+---
+Note pédagogique : exercices conçus pour ${name}, niveau ${level}.
+Utilise un vocabulaire simple et des exemples du quotidien marocain (famille, école, nature, animaux).
+NE génère PAS de HTML. Utilise uniquement du texte structuré avec les titres ## indiqués.`;
+  }
+
+  /* --------------------------------------------------
+     API CALL
+  -------------------------------------------------- */
+  async function callAPI(prompt) {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${_k}`,
+        'HTTP-Referer': window.location.href,
+        'X-Title': 'ConjugaisonMaroc'
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.7,
+        max_tokens: 3000
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err?.error?.message || `Erreur HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.choices?.[0]?.message?.content || '';
+  }
+
+  /* --------------------------------------------------
+     PARSER — split raw text into sections
+  -------------------------------------------------- */
+  function parseSections(raw) {
+    /* Split on ## EXERCICE N */
+    const parts = raw.split(/##\s*EXERCICE\s*\d+\s*[—–-]/i);
+    const titles = [...raw.matchAll(/##\s*EXERCICE\s*\d+\s*[—–-]\s*(.+)/gi)].map(m => m[1].trim());
+
+    const sections = [];
+    for (let i = 1; i < parts.length; i++) {
+      sections.push({ title: titles[i - 1] || `Exercice ${i}`, body: parts[i].trim() });
+    }
+    return sections;
+  }
+
+  /* --------------------------------------------------
+     RENDERER — convert section body to HTML
+  -------------------------------------------------- */
+  function renderSection(section, index) {
+    const badges = [
+      { cls: 'badge-qcm1',  icon: 'fa-solid fa-circle-dot',      label: 'QCM – Choix unique'   },
+      { cls: 'badge-qcm2',  icon: 'fa-solid fa-check-double',     label: 'QCM – Choix multiples'},
+      { cls: 'badge-trous', icon: 'fa-solid fa-pencil',           label: 'Texte à trous'        },
+      { cls: 'badge-match', icon: 'fa-solid fa-link',             label: 'Correspondance'       },
+      { cls: 'badge-vf',    icon: 'fa-solid fa-scale-balanced',   label: 'Vrai ou Faux'         }
+    ];
+
+    const badge = badges[index] || { cls: '', icon: 'fa-solid fa-star', label: '' };
+
+    /* Process body text → HTML */
+    let html = escapeHtml(section.body)
+      /* Blank lines → paragraphs */
+      .replace(/\n{2,}/g, '</p><p>')
+      /* Banque de mots highlight */
+      .replace(/(Banque de mots\s*:?[^\n]*)/gi,
+        '<strong style="color:var(--accent)">$1</strong>')
+      /* Bold **text** */
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      /* ___ blanks */
+      .replace(/_{2,}/g, '<span class="blank">____</span>')
+      /* Numbered list */
+      .replace(/^(\d+[\.\)])\s/gm, '<br><strong>$1</strong> ')
+      /* Letter options A) B) C) */
+      .replace(/^([A-Da-d][\.\)])\s/gm, '&nbsp;&nbsp;$1 ')
+      /* Vrai/Faux highlight */
+      .replace(/\bVrai\b/g, '<span style="color:var(--success);font-weight:700">Vrai</span>')
+      .replace(/\bFaux\b/g, '<span style="color:var(--danger);font-weight:700">Faux</span>')
+      /* Réponse/Correction highlight */
+      .replace(/(Réponse[s]?\s*:?\s*|Correction\s*:?\s*|Bonne[s]?\s*réponse[s]?\s*:?\s*)/gi,
+        '<em style="color:var(--success)">$1</em>');
+
+    html = `<p>${html}</p>`;
+
+    return `
+      <div class="ex-section" style="animation-delay:${index * .12}s">
+        <span class="ex-badge ${badge.cls}">
+          <i class="${badge.icon}"></i>${badge.label}
+        </span>
+        <h3>${escapeHtml(section.title)}</h3>
+        <div class="ex-content">${html}</div>
+      </div>`;
+  }
+
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  /* Count approximate questions */
+  function countQuestions(raw) {
+    const matches = raw.match(/^\d+[\.\)]/gm);
+    return matches ? matches.length : '–';
+  }
+
+  /* --------------------------------------------------
+     FORM SUBMIT
+  -------------------------------------------------- */
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formErr.classList.remove('show');
+
+    const name    = fullname.value.trim();
+    const lsn     = lesson.value.trim();
+    const lvl     = getLevel();
+
+    /* Validation */
+    if (!name) {
+      showError(formErr, formErrMsg, 'Veuillez saisir votre nom complet.');
+      fullname.focus();
+      return;
+    }
+    if (!lsn) {
+      showError(formErr, formErrMsg, 'Veuillez saisir le titre de la leçon.');
+      lesson.focus();
+      return;
+    }
+    if (!lvl) {
+      showError(formErr, formErrMsg, 'Veuillez sélectionner un niveau scolaire.');
+      return;
+    }
+
+    setLoading(true);
+    startLoaderMessages();
+
+    try {
+      const prompt  = buildPrompt(name, lsn, lvl);
+      const rawText = await callAPI(prompt);
+
+      if (!rawText) throw new Error('Réponse vide reçue du modèle.');
+
+      /* Parse & render */
+      const sections = parseSections(rawText);
+      if (sections.length === 0) throw new Error('Impossible de parser les exercices générés.');
+
+      /* Populate results */
+      resTitle.textContent  = `Exercices – ${lsn}`;
+      resMeta.textContent   = `${name} · ${lvl}`;
+      statQ.textContent     = countQuestions(rawText);
+      statLvl.textContent   = lvl.replace(' primaire', '');
+
+      exContainer.innerHTML = sections.map((s, i) => renderSection(s, i)).join('');
+
+      results.classList.add('show');
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    } catch (err) {
+      showError(apiErr, apiErrMsg,
+        `⚠️ ${err.message || 'Une erreur réseau est survenue. Veuillez réessayer.'}`);
+      console.error('[ConjugaisonMaroc]', err);
+    } finally {
+      setLoading(false);
+      stopLoaderMessages();
+    }
+  });
+
+  /* --------------------------------------------------
+     COPY RESULTS
+  -------------------------------------------------- */
+  window.copyResults = function () {
+    const text = exContainer.innerText || exContainer.textContent;
+    if (!text) return;
+    navigator.clipboard.writeText(text)
+      .then(() => showToast('✅ Contenu copié !'))
+      .catch(() => showToast('❌ Copie impossible'));
+  };
+
+  /* --------------------------------------------------
+     LEVEL PILL ANIMATION
+  -------------------------------------------------- */
+  document.querySelectorAll('.level-pill input').forEach(input => {
+    input.addEventListener('change', () => {
+      document.querySelectorAll('.level-pill label').forEach(l => l.style.transform = '');
+      const lbl = input.nextElementSibling;
+      lbl.style.transform = 'scale(1.04)';
+      setTimeout(() => lbl.style.transform = '', 300);
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
